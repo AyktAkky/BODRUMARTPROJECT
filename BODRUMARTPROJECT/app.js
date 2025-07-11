@@ -9,10 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentIndex = 0;
   let isTransitioning = false;
   
-  // Always show only 1 card
-  function getVisibleCards() {
-    return 1;
-  }
+  // getVisibleCards kaldırıldı – tek kart varsayımı JS içinde sabit
   
   // Update carousel position for single card display
   function updateCarousel() {
@@ -93,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentOffset = currentIndex * -100;
     const dragOffset = (diff / window.innerWidth) * 100;
     track.style.transform = `translateX(${currentOffset + dragOffset}%)`;
-  });
+  }, { passive: false });
   
   track.addEventListener('touchend', () => {
     if (!isDragging || isTransitioning) return;

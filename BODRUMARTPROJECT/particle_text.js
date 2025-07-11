@@ -6,6 +6,9 @@
 const preload = () => {
 
   const manager = new THREE.LoadingManager();
+  manager.onError = (url) => {
+    console.error('Yüklenemedi:', url);
+  };
   manager.onLoad = () => {
     // Instantiate the scene once font & texture are ready
     new Environment(font, particleTexture);
@@ -162,7 +165,7 @@ class CreateParticles {
     vector.unproject(this.camera);
     const dir = vector.sub(this.camera.position).normalize();
     const distance = -this.camera.position.z / dir.z;
-    this.currenPosition = this.camera.position.clone().add(dir.multiplyScalar(distance));
+    // this.currenPosition kullanılmıyor; kaldırıldı
 
     this.buttom = true;
     this.data.ease = 0.01;
@@ -291,7 +294,7 @@ class CreateParticles {
     // Center geometry
     const xMid = -0.5 * (geometry.boundingBox.max.x - geometry.boundingBox.min.x);
     const yMid = (geometry.boundingBox.max.y - geometry.boundingBox.min.y) / 2.85;
-    geometry.center();
+    // geometry.center() kaldırıldı çünkü xMid/yMid ile manuel ortalama yapıyoruz
 
     // Handle holes in shapes
     const holeShapes = [];
